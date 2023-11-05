@@ -5,7 +5,6 @@ import { manipulate } from "./llm-syntax";
 interface Optimizations {
   title: string;
   description: string;
-  details?: string;
 }
 
 const css = `
@@ -66,10 +65,6 @@ function App() {
         func: manipulate,
       });
     });
-
-    // chrome.tabs.query({ active: false, currentWindow: true }, (tabs) => {
-    //   toggleScan(false);
-    // });
 
     // receive the html content
     chrome.runtime.onMessage.addListener(function (request) {
@@ -134,7 +129,7 @@ function App() {
       optimizations
         .map(
           (optimization) =>
-            `*${optimization.title}* \n ${optimization.description} \n ${optimization.details}`
+            `*${optimization.title}* \n ${optimization.description}`
         )
         .join("\n\n");
     let doc = URL.createObjectURL(
@@ -183,7 +178,6 @@ function App() {
               description={optimization.description}
               pageUrl={pageUrl}
               pageTitle={pageTitle}
-              details="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam ultricies, nisl nunc ultricies nunc, nec aliquam nunc nisl nec nisl. "
             />
           ))}
           {optimizations.length > 0 && (
@@ -200,7 +194,6 @@ function App() {
 type OptimizationItemProps = {
   title: string;
   description: string;
-  details?: string;
   pageUrl: string;
   pageTitle: string;
 };
@@ -208,28 +201,24 @@ type OptimizationItemProps = {
 function OptimizationItem({
   title,
   description,
-  details,
   pageUrl,
   pageTitle,
 }: OptimizationItemProps) {
-  const [showDetails, setShowDetails] = useState<boolean>(false);
   const [mailTo, setMailTo] = useState<string>("");
 
   useEffect(() => {
     setMailTo(
-      `mailto:?subject=Optimization%20advice%20for%20${pageTitle}&body=Here%20is%20the%20optimization%20advice%20I%20came%20up%20using%20UXcelerate:%0D%20${title}%0D%20${description}%0D%0D%0A${details}%0Durl:%20${pageUrl}`
+      `mailto:?subject=Optimization%20advice%20for%20${pageTitle}&body=Here%20is%20the%20optimization%20advice%20I%20came%20up%20using%20UXcelerate:%0D%20${title}%0D%20${description}%0Durl:%20${pageUrl}`
     );
   }, [pageUrl, pageTitle]);
 
   return (
     <div
       className="optimization-item"
-      onClick={() => setShowDetails((prev) => !prev)}
     >
       <div className="text-container">
         <h2 className="title">{title}</h2>
         <p className="description">{description}</p>
-        {showDetails && <span className="details">{details}</span>}
       </div>
       <div className="share-container">
         <ShareButton link={mailTo} />
