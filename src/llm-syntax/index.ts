@@ -198,11 +198,12 @@ export function manipulate() {
     document.querySelectorAll("body *").forEach((element) => {
       const styles = getComputedStyles(element, stylesToInclude);
 
-      // remove all attributes from element
-      Object.keys(element.attributes).forEach((attr) => {
-        if (!["name", "content", "alt", "href"].includes(attr))
-          element.removeAttribute(attr);
-      });
+      for(let i = 0; i < element.attributes.length; i++) {
+        let attribute = element.attributes[i];
+        if (!["name", "content", "alt", "href"].includes(attribute.name))
+          element.removeAttribute(attribute.name);
+    }
+
 
       for (const styleKey in stylesToInclude) {
         if (styles?.hasOwnProperty(styleKey)) {
@@ -230,6 +231,21 @@ export function manipulate() {
       document.querySelectorAll("body link").forEach((el) => el.remove());
     });
 
+    // flatmap
+    let tagsWithoutAttributes = Array.from(
+      document.querySelectorAll("body *")
+    ).filter(function (element) {
+      return element.attributes.length === 0;
+    });
+
+    tagsWithoutAttributes.forEach(function (element) {
+      while (element.firstChild) {
+        if (element.parentNode)
+          element.parentNode.insertBefore(element.firstChild, element);
+      }
+      if (element.parentNode) element.parentNode.removeChild(element);
+    });
+    
     // send message to background
     const llm_syntax = document.body.innerHTML
       .replaceAll("\n", "")
