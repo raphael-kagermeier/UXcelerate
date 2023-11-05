@@ -2,13 +2,18 @@ import json
 import logging
 
 from flask import Flask, request, jsonify
-
 from uxcelerator import get_recommendations
 
 app = Flask(__name__)
 
 MAX_RETRIES = 5
 
+
+def remove_prefix(response):
+    start_index = response.find("[")
+    if start_index == -1:
+        raise ValueError("Response does not have the JSON format.")
+    return response[start_index:]
 
 @app.route('/recommend', methods=['POST'])
 async def recommend():
@@ -22,7 +27,7 @@ async def recommend():
         try:
             recommendations = await get_recommendations(html_content)
             for recommendation in recommendations:
-                parsed_recommendations += json.loads(recommendation)
+                parsed_recommendations += json.loads(remove_prefix(recommendation))
             logging.info("Generation succeeded!")
             break
         except Exception as e:
