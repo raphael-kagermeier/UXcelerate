@@ -1,11 +1,71 @@
-.App {
-    color: white;
+
+.container {
+    width: 30rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
     text-align: center;
 }
 
-.container {
-    width: 15rem;
-    height: 15rem;
-    background-color: green;
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
 
+.input-container input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: #aaa;
+    box-shadow: 0 0 1px 1px #aaa;
+}
+
+.input-container input::placeholder {
+    color: #aaa;
+}
+
+.input-container button {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.optimization-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.optimization-item {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.optimization-item h2 {
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: -0.5rem;
+}
+
+.optimization-item p {
+    font-size: 0.75rem;
+    color: #454545;
 }
