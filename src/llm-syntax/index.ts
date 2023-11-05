@@ -231,7 +231,14 @@ export function manipulate() {
     });
 
     // send message to background
-    chrome.runtime.sendMessage({ llm_syntax: document.body.innerHTML });
+    const llm_syntax = document.body.innerHTML
+      .replaceAll("\n", "")
+      .replaceAll("\t", "")
+      .replaceAll("  ", "")
+      .replaceAll(" />", "/>")
+      .trim();
+
+    chrome.runtime.sendMessage({ llm_syntax });
     document.body.replaceWith(originalBody);
   } catch (e) {
     const error = e as Error;

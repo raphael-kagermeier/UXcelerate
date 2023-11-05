@@ -4,11 +4,16 @@
     "name": "UXcelarate",
     "permissions": [
         "activeTab",
-        "scripting"
+        "scripting",
+        "webRequest"
+
     ],
     "action": {
         "default_popup": "js/index.html",
         "default_title": "UXcelarate",
         "default_icon": "icon.png"
-    }
+    },
+    "host_permissions": [
+        "*://localhost:*/*"
+      ]
 }

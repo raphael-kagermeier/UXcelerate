@@ -33,27 +33,27 @@ function App() {
   const onSubmit = () => {
     setLoading(true);
 
-    // replace with API call
-    setTimeout(() => {
-      setLoading(false);
-      setOptimizations([
-        {
-          title: "Optimization 1",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor.",
-        },
-        {
-          title: "Optimization 2",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor.",
-        },
-        {
-          title: "Optimization 3",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor.",
-        },
-      ]);
-    }, 1000);
+    fetch("http://localhost/recommend", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        goal,
+        htmlContent,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setOptimizations(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setHasError(true);
+        setLoading(false);
+      });
+
+    
   };
 
   return (

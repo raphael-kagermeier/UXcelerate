@@ -17,7 +17,9 @@ def remove_prefix(response):
 
 @app.route('/recommend', methods=['POST'])
 async def recommend():
-    html_content = request.get_data(as_text=True)
+    data = request.get_json()
+    goal = data['goal']
+    html_content = data['htmlContent']
 
     if not html_content:
         return jsonify({"error": "No HTML content provided"}), 400
@@ -39,4 +41,5 @@ async def recommend():
 
 
 if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80)
     app.run(debug=True)
