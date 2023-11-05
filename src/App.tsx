@@ -151,7 +151,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="icon">🤖</h1>
+      <h1 className="icon">😎</h1>
       <h1 className="logo">UXcelarate</h1>
 
       {!optimizations.length && (
