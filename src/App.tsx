@@ -155,7 +155,7 @@ function App() {
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
             type="text"
-            placeholder="Enter your goal"
+            placeholder="taxpayers should understand the process clearly and be able to pay there taxes in time"
           />
           <button disabled={loading || !htmlContent} onClick={onSubmit}>
             {loading ? "Loading" : "Get Inspired"}
