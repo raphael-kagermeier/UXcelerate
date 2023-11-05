@@ -1,0 +1,4 @@
+anthropic
+flask[async]
+langchain
+xmltodict
