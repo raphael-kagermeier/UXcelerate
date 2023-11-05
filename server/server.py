@@ -27,7 +27,7 @@ async def recommend():
     parsed_recommendations = []
     for attempt in range(1, MAX_RETRIES + 1):
         try:
-            recommendations = await get_recommendations(html_content)
+            recommendations = await get_recommendations(html_content, goal)
             for recommendation in recommendations:
                 parsed_recommendations += json.loads(remove_prefix(recommendation))
             logging.info("Generation succeeded!")
